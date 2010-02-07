@@ -11,6 +11,12 @@ module KQueue
     def initialize(native, queue)
       @native = native
       @queue = queue
+
+      KQueue.handle_error @native[:data] if @native[:flags] & Native::Flags::EV_ERROR != 0
+    end
+
+    def callback!
+      watcher.callback! self
     end
   end
 end

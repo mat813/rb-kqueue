@@ -8,8 +8,21 @@ module KQueue
       @watchers = {}
     end
 
-    def watch_for_change(path, *flags)
-      Watcher::VNode.new(self, path, flags)
+    def watch_for_change(path, *flags, &callback)
+      Watcher::VNode.new(self, path, flags, callback)
+    end
+
+    def run
+      @stop = false
+      process until @stop
+    end
+
+    def stop
+      @stop = true
+    end
+
+    def process
+      read_events.each {|event| event.callback!}
     end
 
     def read_events

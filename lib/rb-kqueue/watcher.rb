@@ -1,22 +1,23 @@
 module KQueue
   class Watcher
-    def initialize(queue, ident, filter, fflags, data)
+    def initialize(queue, ident, filter, fflags, data, callback)
       @queue = queue
       @ident = ident
       @filter = filter
       @flags = []
       @fflags = fflags
       @data = data
+      @callback = callback
       add!
     end
 
     def add!
-      kqueue! :add
+      kqueue! :add, :clear # TODO: Don't always enable :clear
       @queue.watchers[[@filter, @ident]] = self
     end
 
-    def remove!
-      kqueue! :add
+    def delete!
+      kqueue! :delete
       @queue.watchers.delete([@filter, @ident])
     end
 
@@ -26,6 +27,10 @@ module KQueue
 
     def disable!
       kqueue! :disable
+    end
+
+    def callback!(event)
+      @callback.call event
     end
 
     private

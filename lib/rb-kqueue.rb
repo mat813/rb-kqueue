@@ -6,10 +6,10 @@ require 'rb-kqueue/event'
 require 'rb-kqueue/queue'
 
 module KQueue
-  def self.handle_error
+  def self.handle_error(errno = FFI.errno)
     raise SystemCallError.new(
       "KQueue failed" +
-      case FFI.errno
+      case errno
       when Errno::EFAULT::Errno; ": There was an error reading or writing the kevent structure."
       when Errno::EBADF::Errno; ": The specified descriptor is invalid."
       when Errno::EINTR::Errno; ": A signal was delivered before the timeout expired and before any events were placed on the kqueue for return."
@@ -19,6 +19,6 @@ module KQueue
       when Errno::ESRCH::Errno; ": The specified process to attach to does not exist."
       else; ""
       end,
-      FFI.errno)
+      errno)
   end
 end
