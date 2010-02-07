@@ -15,6 +15,19 @@ module KQueue
       @queue.watchers[[@filter, @ident]] = self
     end
 
+    def remove!
+      kqueue! :add
+      @queue.watchers.delete([@filter, @ident])
+    end
+
+    def enable!
+      kqueue! :enable
+    end
+
+    def disable!
+      kqueue! :disable
+    end
+
     private
 
     def native(flags)
