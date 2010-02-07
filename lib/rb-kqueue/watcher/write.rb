@@ -1,9 +1,9 @@
 module KQueue
   class Watcher
-    class Read < ReadWrite
+    class Write < ReadWrite
       private
 
-      def filter; :read; end
+      def filter; :write; end
     end
   end
 end
