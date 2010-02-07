@@ -16,7 +16,7 @@ module KQueue
       res = Native.kevent(@fd, nil, 0, eventlist, size, nil)
 
       KQueue.handle_error if res < 0
-      (0...res).map {|i| Native::KEvent.new(eventlist[i])}
+      (0...res).map {|i| KQueue::Event.new(Native::KEvent.new(eventlist[i]), self)}
     end
   end
 end
