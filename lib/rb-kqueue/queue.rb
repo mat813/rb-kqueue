@@ -1,9 +1,11 @@
 module KQueue
   class Queue
     attr_reader :fd
+    attr_reader :watchers
 
     def initialize
       @fd = Native.kqueue
+      @watchers = {}
     end
 
     def watch_for_change(path, *flags)

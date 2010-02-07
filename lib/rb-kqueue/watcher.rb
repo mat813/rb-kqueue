@@ -12,6 +12,7 @@ module KQueue
 
     def add!
       kqueue! :add
+      @queue.watchers[[@filter, @ident]] = self
     end
 
     private
@@ -19,11 +20,10 @@ module KQueue
     def native(flags)
       native = Native::KEvent.new
       native[:ident] = @ident
-      native[:filter] = Native::Flags.to_mask("EVFILT", [@filter])
+      native[:filter] = Native::Flags.to_flag("EVFILT", @filter)
       native[:flags] = Native::Flags.to_mask("EV", @flags | flags)
       native[:fflags] = Native::Flags.to_mask("NOTE", @fflags)
       native[:data] = @data if @data
-      native[:udata] = @udata
       native
     end
 

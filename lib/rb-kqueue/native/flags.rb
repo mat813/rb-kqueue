@@ -63,7 +63,19 @@ module KQueue
         constants.select do |c|
           next false unless c =~ re
           const_get(c) & mask != 0
-        end.map {|c| c.sub("#{prefix}_", "").downcase.to_sym} - [:all_events]
+        end.map {|c| c.sub("#{prefix}_", "").downcase.to_sym}
+      end
+
+      def self.to_flag(prefix, flag)
+        const_get("#{prefix}_#{flag.to_s.upcase}")
+      end
+
+      def self.from_flag(prefix, flag)
+        re = /^#{Regexp.quote prefix}_/
+        constants.each do |c|
+          next unless c =~ re
+          return c.sub("#{prefix}_", "").downcase.to_sym if const_get(c) == flag
+        end
       end
     end
   end
