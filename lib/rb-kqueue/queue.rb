@@ -8,6 +8,11 @@ module KQueue
       @watchers = {}
     end
 
+    def watch_for_read(fd, low_water = nil, &callback)
+      fd = fd.fileno if fd.respond_to?(:fileno)
+      Watcher::Read.new(self, fd, low_water, callback)
+    end
+
     def watch_for_change(path, *flags, &callback)
       Watcher::VNode.new(self, path, flags, callback)
     end

@@ -32,6 +32,9 @@ module KQueue
       EV_ERROR = 0x4000 # Error, data contains errno
 
 
+      # For EVFILT_{READ,WRITE}
+      NOTE_LOWAT = 0x00000001 # Low water mark
+
       # For EVFILT_VNODE
       NOTE_DELETE = 0x00000001 # Vnode was removed
       NOTE_WRITE = 0x00000002 # Data contents changed
