@@ -1,0 +1,36 @@
+module KQueue
+  class Watcher
+    def initialize(queue, ident, filter, fflags, data)
+      @queue = queue
+      @ident = ident
+      @filter = filter
+      @flags = []
+      @fflags = fflags
+      @data = data
+      add!
+    end
+
+    def add!
+      kqueue! :add
+    end
+
+    private
+
+    def native(flags)
+      native = Native::KEvent.new
+      native[:ident] = @ident
+      native[:filter] = Native::Flags.to_mask("EVFILT", [@filter])
+      native[:flags] = Native::Flags.to_mask("EV", @flags | flags)
+      native[:fflags] = Native::Flags.to_mask("NOTE", @fflags)
+      native[:data] = @data if @data
+      native[:udata] = @udata
+      native
+    end
+
+    def kqueue!(*flags)
+      if Native.kevent(@queue.fd, native(flags).pointer, 1, nil, 0, nil) < 0
+        KQueue.handle_error
+      end
+    end
+  end
+end

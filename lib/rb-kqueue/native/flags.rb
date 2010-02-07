@@ -27,10 +27,6 @@ module KQueue
       EV_CLEAR = 0x0020 # Clear event state after reporting
       EV_DISPATCH = 0x0080 # Disable event after reporting
 
-      EV_SYSFLAGS = 0xF000 # Reserved by system
-      EV_FLAG0 = 0x1000 # Filter-specific flag
-      EV_FLAG1 = 0x2000 # Filter-specific flag
-
       # Returned values
       EV_EOF = 0x8000 # EOF detected
       EV_ERROR = 0x4000 # Error, data contains errno
