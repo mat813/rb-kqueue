@@ -33,5 +33,8 @@ module KQueue
 
     attach_function :kqueue, [], :int
     attach_function :kevent, [:int, :pointer, :int, :pointer, :int, :pointer], :int
+
+    attach_function :open, [:string, :int], :int
+    attach_function :close, [:int], :int
   end
 end
