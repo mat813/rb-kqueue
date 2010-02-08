@@ -102,7 +102,7 @@ module KQueue
       native[:ident] = @ident
       native[:filter] = Native::Flags.to_flag("EVFILT", @filter)
       native[:flags] = Native::Flags.to_mask("EV", @flags | flags)
-      native[:fflags] = Native::Flags.to_mask("NOTE", @fflags)
+      native[:fflags] = Native::Flags.to_mask("NOTE_#{@filter.to_s.upcase}", @fflags)
       native[:data] = @data if @data
       native
     end

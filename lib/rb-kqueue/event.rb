@@ -39,7 +39,7 @@ module KQueue
     #
     # @return [Array<Symbol>]
     def flags
-      @fflags ||= Native::Flags.from_mask("NOTE", @native[:fflags])
+      @fflags ||= Native::Flags.from_mask("NOTE_#{filter.to_s.upcase}", @native[:fflags])
     end
 
     # Returns whether the end-of-file flag has been set for this event.

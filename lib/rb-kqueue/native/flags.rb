@@ -37,23 +37,23 @@ module KQueue
 
 
       # For `EVFILT_{READ,WRITE}`
-      NOTE_LOWAT = 0x00000001 # Low water mark
+      NOTE_READ_LOWAT = NOTE_WRITE_LOWAT = 0x00000001 # Low water mark
 
       # For `EVFILT_VNODE`
-      NOTE_DELETE = 0x00000001 # Vnode was removed
-      NOTE_WRITE = 0x00000002 # Data contents changed
-      NOTE_EXTEND = 0x00000004 # Size increased
-      NOTE_ATTRIB = 0x00000008 # Attributes changed
-      NOTE_LINK = 0x00000010 # Link count changed
-      NOTE_RENAME = 0x00000020 # Vnode was renamed
-      NOTE_REVOKE = 0x00000040 # Vnode access was revoked
+      NOTE_VNODE_DELETE = 0x00000001 # Vnode was removed
+      NOTE_VNODE_WRITE = 0x00000002 # Data contents changed
+      NOTE_VNODE_EXTEND = 0x00000004 # Size increased
+      NOTE_VNODE_ATTRIB = 0x00000008 # Attributes changed
+      NOTE_VNODE_LINK = 0x00000010 # Link count changed
+      NOTE_VNODE_RENAME = 0x00000020 # Vnode was renamed
+      NOTE_VNODE_REVOKE = 0x00000040 # Vnode access was revoked
 
       # For `EVFILT_PROC`
-      NOTE_EXIT = 0x80000000 # Process exited
-      NOTE_FORK = 0x40000000 # Process forked
-      NOTE_EXEC = 0x20000000 # Process exec'd
-      NOTE_REAP = 0x10000000 # Process reaped
-      NOTE_SIGNAL = 0x08000000 # Received signal
+      NOTE_PROC_EXIT = 0x80000000 # Process exited
+      NOTE_PROC_FORK = 0x40000000 # Process forked
+      NOTE_PROC_EXEC = 0x20000000 # Process exec'd
+      NOTE_PROC_REAP = 0x10000000 # Process reaped
+      NOTE_PROC_SIGNAL = 0x08000000 # Received signal
 
 
       # Converts a list of flags to the bitmask that the C API expects.
