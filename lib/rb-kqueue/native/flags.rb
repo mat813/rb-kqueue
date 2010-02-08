@@ -1,5 +1,9 @@
 module KQueue
   module Native
+    # A module containing all the C-level integer flags
+    # that are used with kqueue.
+    #
+    # @private
     module Flags
       # Filters
       EVFILT_READ = -1
@@ -32,10 +36,10 @@ module KQueue
       EV_ERROR = 0x4000 # Error, data contains errno
 
 
-      # For EVFILT_{READ,WRITE}
+      # For `EVFILT_{READ,WRITE}`
       NOTE_LOWAT = 0x00000001 # Low water mark
 
-      # For EVFILT_VNODE
+      # For `EVFILT_VNODE`
       NOTE_DELETE = 0x00000001 # Vnode was removed
       NOTE_WRITE = 0x00000002 # Data contents changed
       NOTE_EXTEND = 0x00000004 # Size increased
@@ -43,7 +47,6 @@ module KQueue
       NOTE_LINK = 0x00000010 # Link count changed
       NOTE_RENAME = 0x00000020 # Vnode was renamed
       NOTE_REVOKE = 0x00000040 # Vnode access was revoked
-      NOTE_NONE = 0x00000080 # No specific vnode event: to test for EVFILT_READ activation
 
 
       # Converts a list of flags to the bitmask that the C API expects.
@@ -69,10 +72,20 @@ module KQueue
         end.map {|c| c.sub("#{prefix}_", "").downcase.to_sym}
       end
 
+      # Converts a flag to the integer that the C API expects.
+      #
+      # @param prefix [String] The prefix for the C names of the flags
+      # @param flag [Symbol]
+      # @return [Fixnum]
       def self.to_flag(prefix, flag)
         const_get("#{prefix}_#{flag.to_s.upcase}")
       end
 
+      # Converts an integer from the C API into a flag.
+      #
+      # @param prefix [String] The prefix for the C names of the flags
+      # @param flag [Fixnum]
+      # @return [Symbol]
       def self.from_flag(prefix, flag)
         re = /^#{Regexp.quote prefix}_/
         constants.each do |c|

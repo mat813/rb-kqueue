@@ -7,9 +7,21 @@ require 'rb-kqueue/watcher/process'
 require 'rb-kqueue/event'
 require 'rb-kqueue/queue'
 
+# The root module of the library, which is laid out as so:
+#
+# * {Queue} -- The main class, where events are registered
+# * {Watcher} -- A watcher for a single sort of event
+# * {Event} -- A notification that an event has occurred
 module KQueue
   VERSION = [0, 0, 1]
 
+  # Raise an exception for a native kqueue error.
+  #
+  # @param errno [Fixnum] The errno identifying the sort of error.
+  #   This is usually C's `errno` variable,
+  #   but is sometimes set in a kevent struct
+  # @raise [SystemCallError]
+  # @private
   def self.handle_error(errno = FFI.errno)
     raise SystemCallError.new(
       "KQueue failed" +
