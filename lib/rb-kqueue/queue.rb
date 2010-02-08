@@ -66,6 +66,10 @@ module KQueue
     # The {Event#data} field is set to the number of bytes available.
     # When the last writer disconnects, {Event#eof?} will be set.
     #
+    # Note that this isn't compatible with JRuby
+    # unless a native-code file descriptor is passed in.
+    # This means the file descriptor must be returned by an FFI-wrapped C function.
+    #
     # @param fd [IO, Fixnum] A Ruby IO stream, or the file descriptor
     #   for a native IO stream.
     # @yield [event] A block that will be run when the specified stream
@@ -96,6 +100,10 @@ module KQueue
     # It's possible for {Event#eof?} to be set while there's still
     # data pending in the socket buffer.
     #
+    # Note that this isn't compatible with JRuby
+    # unless a native-code file descriptor is passed in.
+    # This means the file descriptor must be returned by an FFI-wrapped C function.
+    #
     # @param fd [Socket, Fixnum] A Ruby Socket, or the file descriptor
     #   for a native Socket.
     # @param low_water [Fixnum] The low-water mark for new data.
@@ -116,6 +124,10 @@ module KQueue
     # The {Event#data} field is set to the amount of space
     # remaining in the write buffer.
     # When the reader disconnects, {Event#eof?} will be set.
+    #
+    # Note that this isn't compatible with JRuby
+    # unless a native-code file descriptor is passed in.
+    # This means the file descriptor must be returned by an FFI-wrapped C function.
     #
     # @param fd [IO, Fixnum] A Ruby IO stream, or the file descriptor
     #   for a native IO stream.
@@ -142,6 +154,10 @@ module KQueue
     # then {Event#eof?} is set.
     # It's possible for {Event#eof?} to be set while there's still
     # data pending in the socket buffer.
+    #
+    # Note that this isn't compatible with JRuby
+    # unless a native-code file descriptor is passed in.
+    # This means the file descriptor must be returned by an FFI-wrapped C function.
     #
     # @param fd [Socket, Fixnum] A Ruby Socket, or the file descriptor
     #   for a native Socket.
