@@ -255,6 +255,24 @@ module KQueue
       Watcher::Process.new(self, path, flags, callback)
     end
 
+    # Watches for signals to this process.
+    # This coexists with other signal facilities, and has lower precedence.
+    # Only signals sent to the process, not to a particular thread, will fire events.
+    # Event notification happens before normal signal delivery processing.
+    #
+    # The {Event#data} field contains the number of times the signal has been generated
+    # since the last time the event was fired.
+    #
+    # @param signal [String, Fixnum] The name of number of the signal.
+    # @yield [event] A block that will be run when the signal is received.
+    # @yieldparam event [Event] The Event object containing information
+    #   about the event that occurred.
+    # @return [Watcher] The Watcher for this event.
+    # @raise [SystemCallError] If something goes wrong when registering the Watcher.
+    def watch_for_signal(signal, &callback)
+      Watcher::Signal.new(self, signal, callback)
+    end
+
     # Starts the queue watching for events.
     # Blocks until \{#stop} is called.
     #
