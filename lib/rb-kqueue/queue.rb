@@ -55,7 +55,7 @@ module KQueue
 
     # Watches a stream and produces an event when there's data available to read.
     #
-    # This can watch files, pipes, and fifos.
+    # This can watch files, pipes, fifos, and BPF devices.
     # For files, an event is fired whenever the file pointer
     # is not at the end of the file,
     # and the {Event#data} field is set to the offset
@@ -65,6 +65,13 @@ module KQueue
     # For pipes and fifos, an event is fired whenever there's data to read.
     # The {Event#data} field is set to the number of bytes available.
     # When the last writer disconnects, {Event#eof?} will be set.
+    #
+    # For BPF devices (not supported under Darwin/OS X),
+    # an event is fired when the BPF buffer is full,
+    # the BPF timeout has expired,
+    # or when the BPF has "immediate mode" enabled
+    # and there is data to read.
+    # The {Event#data} field is set to the number of bytes available.
     #
     # Note that this isn't compatible with JRuby
     # unless a native-code file descriptor is passed in.
