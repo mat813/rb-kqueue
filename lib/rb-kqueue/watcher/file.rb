@@ -2,7 +2,7 @@ module KQueue
   class Watcher
     # The {Watcher} subclass for events fired when a file changes.
     # File events are watched via {Queue#watch_file}.
-    class VNode < Watcher
+    class File < Watcher
       # The path to the file being watched.
       #
       # @return [String]

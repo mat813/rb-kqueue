@@ -9,14 +9,16 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nathan Weizenbaum"]
-  s.date = %q{2010-02-07}
+  s.date = %q{2010-02-08}
   s.description = %q{A Ruby wrapper for BSD's kqueue, using FFI}
   s.email = %q{nex342@gmail.com}
   s.extra_rdoc_files = [
     "README.md"
   ]
   s.files = [
-    "MIT-LICENSE",
+    ".gitignore",
+     ".yardopts",
+     "MIT-LICENSE",
      "README.md",
      "Rakefile",
      "VERSION",
@@ -26,10 +28,11 @@ Gem::Specification.new do |s|
      "lib/rb-kqueue/native/flags.rb",
      "lib/rb-kqueue/queue.rb",
      "lib/rb-kqueue/watcher.rb",
+     "lib/rb-kqueue/watcher/file.rb",
      "lib/rb-kqueue/watcher/process.rb",
      "lib/rb-kqueue/watcher/read_write.rb",
      "lib/rb-kqueue/watcher/socket_read_write.rb",
-     "lib/rb-kqueue/watcher/vnode.rb"
+     "rb-kqueue.gemspec"
   ]
   s.homepage = %q{http://github.com/nex3/rb-kqueue}
   s.rdoc_options = ["--charset=UTF-8"]

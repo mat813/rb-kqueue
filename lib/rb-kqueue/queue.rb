@@ -205,7 +205,7 @@ module KQueue
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
     def watch_file(path, *flags, &callback)
-      Watcher::VNode.new(self, path, flags, callback)
+      Watcher::File.new(self, path, flags, callback)
     end
 
     # Watches a process for changes.

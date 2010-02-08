@@ -1,7 +1,7 @@
 require 'rb-kqueue/native'
 require 'rb-kqueue/native/flags'
 require 'rb-kqueue/watcher'
-require 'rb-kqueue/watcher/vnode'
+require 'rb-kqueue/watcher/file'
 require 'rb-kqueue/watcher/read_write'
 require 'rb-kqueue/watcher/process'
 require 'rb-kqueue/event'
