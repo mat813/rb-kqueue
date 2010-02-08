@@ -13,7 +13,7 @@ require 'rb-kqueue/queue'
 # * {Watcher} -- A watcher for a single sort of event
 # * {Event} -- A notification that an event has occurred
 module KQueue
-  VERSION = [0, 0, 3]
+  VERSION = [0, 1, 0]
 
   # Raise an exception for a native kqueue error.
   #
