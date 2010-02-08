@@ -1,5 +1,7 @@
 module KQueue
   class Watcher
+    attr_reader :queue
+
     def initialize(queue, ident, filter, fflags, data, callback)
       @queue = queue
       @ident = ident
