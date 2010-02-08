@@ -19,26 +19,26 @@ rescue LoadError
 end
 
 module Jeweler::VersionHelper::PlaintextExtension
-  def write_with_inotify
-    write_without_inotify
+  def write_with_kqueue
+    write_without_kqueue
     filename = File.join(File.dirname(__FILE__), "lib/rb-kqueue.rb")
     text = File.read(filename)
     File.open(filename, 'w') do |f|
       f.write text.gsub(/^(  VERSION = ).*/, '\1' + [major, minor, patch].inspect)
     end
   end
-  alias_method :write_without_inotify, :write
-  alias_method :write, :write_with_inotify
+  alias_method :write_without_kqueue, :write
+  alias_method :write, :write_with_kqueue
 end
 
 class Jeweler::Commands::Version::Base
-  def commit_version_with_inotify
+  def commit_version_with_kqueue
     return unless self.repo
     self.repo.add(File.join(File.dirname(__FILE__), "lib/rb-kqueue.rb"))
-    commit_version_without_inotify
+    commit_version_without_kqueue
   end
-  alias_method :commit_version_without_inotify, :commit_version
-  alias_method :commit_version, :commit_version_with_inotify
+  alias_method :commit_version_without_kqueue, :commit_version
+  alias_method :commit_version, :commit_version_with_kqueue
 end
 
 begin
