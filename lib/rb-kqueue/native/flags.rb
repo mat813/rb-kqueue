@@ -58,6 +58,12 @@ module KQueue
       NOTE_PROC_TRACKERR = 0x00000002 # could not track child
       NOTE_PROC_CHILD = 0x00000004 # am a child process
 
+      # For `EVFILT_TIMER`
+      NOTE_TIMER_SECONDS = 0x00000001 # data is seconds
+      NOTE_TIMER_USECONDS = 0x00000002 # data is microseconds
+      NOTE_TIMER_NSECONDS = 0x00000004 # data is nanoseconds
+      NOTE_TIMER_ABSOLUTE = 0x00000008 # absolute timeout
+
 
       # Converts a list of flags to the bitmask that the C API expects.
       #

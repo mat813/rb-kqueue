@@ -290,6 +290,22 @@ module KQueue
       Watcher::Signal.new(self, signal, callback)
     end
 
+    # Sets up a watcher that fires an event
+    # once every specified interval.
+    #
+    # The {Event#data} field contains the number of times the interval has passed
+    # since the last time the event was fired.
+    #
+    # @param time [Number] The interval, in seconds.
+    # @yield [event] A block that will be run when the interval passes.
+    # @yieldparam event [Event] The Event object containing information
+    #   about the event that occurred.
+    # @return [Watcher] The Watcher for this event.
+    # @raise [SystemCallError] If something goes wrong when registering the Watcher.
+    def watch_timer(time, &callback)
+      Watcher::Timer.new(self, time, callback)
+    end
+
     # Starts the queue watching for events.
     # Blocks until \{#stop} is called.
     #
