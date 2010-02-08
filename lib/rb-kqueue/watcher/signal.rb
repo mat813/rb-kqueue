@@ -1,7 +1,7 @@
 module KQueue
   class Watcher
     # The {Watcher} subclass for events fired when a signal is received.
-    # File events are watched via {Queue#watch_for_signal}.
+    # Signal events are watched via {Queue#watch_for_signal}.
     class Signal < Watcher
       # The name of the signal, e.g. "KILL" for SIGKILL.
       #
