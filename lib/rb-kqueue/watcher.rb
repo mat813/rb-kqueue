@@ -1,7 +1,7 @@
 module KQueue
   # Watchers monitor for a single sort of event,
   # specified by the specific subclass and its parameters.
-  # A watcher is usually created via one of the `watch_for_*` methods
+  # A watcher is usually created via one of the `watch_*` methods
   # on {Queue}.
   #
   # One {Queue} may have many {Watcher}s.

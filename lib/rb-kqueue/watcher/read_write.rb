@@ -3,8 +3,8 @@ module KQueue
     # The {Watcher} subclass for events
     # fired when a stream can be read from or written to
     # (which of these is determined by \{#type}).
-    # Read events are watched via {Queue#watch_for_read},
-    # and write events are watched via {Queue#watch_for_write}.
+    # Read events are watched via {Queue#watch_stream_for_read},
+    # and write events are watched via {Queue#watch_stream_for_write}.
     #
     # Note that read and write events for sockets
     # use the {SocketReadWrite} class.

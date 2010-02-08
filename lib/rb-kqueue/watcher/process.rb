@@ -1,7 +1,7 @@
 module KQueue
   class Watcher
     # The {Watcher} subclass for process events.
-    # Process events are watched via {Queue#watch_for_process_change}.
+    # Process events are watched via {Queue#watch_process}.
     class Process < Watcher
       # The process id of the process being watched.
       #

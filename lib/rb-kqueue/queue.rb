@@ -4,10 +4,9 @@ module KQueue
   # but usually unnecessary.
   #
   # New event watchers are added to a queue
-  # via various `watch_for_*` methods.
-  # For example, \{#watch\_for\_read} watches for a stream
-  # to become readable,
-  # and \{#watch\_for\_file\_change} watches for a file to change.
+  # via various `watch_*` methods.
+  # For example, \{#watch\_stream\_for\_read} watches for a stream
+  # to become readable, and \{#watch\_file} watches for a file to change.
   #
   # Once watchers are added, \{#run} or \{#process} can be used to fire events.
   # Note that if any event-causing conditions happen
@@ -19,12 +18,12 @@ module KQueue
   #   queue = KQueue::Queue.new
   #
   #   # Run this callback whenever the file path/to/foo.txt is read
-  #   queue.watch_for_file_change("path/to/foo.txt", :write) do
+  #   queue.watch_file("path/to/foo.txt", :write) do
   #     puts "Foo.txt was modified!"
   #   end
   #
   #   # Run this callback whenever this process forks or execs
-  #   queue.watch_for_process_change(Process.pid, :fork, :exec) do |event|
+  #   queue.watch_process(Process.pid, :fork, :exec) do |event|
   #     # The #flags field of the event object contains the actions that happened
   #     puts "This process has #{event.flags.map {|f| f.to_s + "ed"}.join(" and ")}"
   #   end
@@ -75,7 +74,7 @@ module KQueue
     #   about the event that occurred.
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
-    def watch_for_read(fd, &callback)
+    def watch_stream_for_read(fd, &callback)
       fd = fd.fileno if fd.respond_to?(:fileno)
       Watcher::ReadWrite.new(self, fd, :read, callback)
     end
@@ -107,7 +106,7 @@ module KQueue
     #   about the event that occurred.
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
-    def watch_for_socket_read(fd, low_water = nil, &callback)
+    def watch_socket_for_read(fd, low_water = nil, &callback)
       fd = fd.fileno if fd.respond_to?(:fileno)
       Watcher::SocketReadWrite.new(self, fd, :read, low_water, callback)
     end
@@ -128,7 +127,7 @@ module KQueue
     #   about the event that occurred.
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
-    def watch_for_write(fd, &callback)
+    def watch_stream_for_write(fd, &callback)
       fd = fd.fileno if fd.respond_to?(:fileno)
       Watcher::ReadWrite.new(self, fd, :write, callback)
     end
@@ -156,7 +155,7 @@ module KQueue
     #   about the event that occurred.
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
-    def watch_for_socket_write(fd, low_water = nil, &callback)
+    def watch_socket_for_write(fd, low_water = nil, &callback)
       fd = fd.fileno if fd.respond_to?(:fileno)
       Watcher::SocketReadWrite.new(self, fd, :write, low_water, callback)
     end
@@ -205,7 +204,7 @@ module KQueue
     #   about the event that occurred.
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
-    def watch_for_file_change(path, *flags, &callback)
+    def watch_file(path, *flags, &callback)
       Watcher::VNode.new(self, path, flags, callback)
     end
 
@@ -240,7 +239,7 @@ module KQueue
     #   about the event that occurred.
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
-    def watch_for_process_change(pid, *flags, &callback)
+    def watch_process(pid, *flags, &callback)
       Watcher::Process.new(self, path, flags, callback)
     end
 

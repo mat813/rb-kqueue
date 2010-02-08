@@ -15,13 +15,13 @@ First, create a queue:
 
 Then, tell it to watch the events you're interested in:
 
-    queue.watch_for_file_change("path/to/foo.txt", :write) {puts "foo.txt was modified!"}
-    queue.watch_for_process_change(Process.pid, :fork, :exec) do |event|
+    queue.watch_file("path/to/foo.txt", :write) {puts "foo.txt was modified!"}
+    queue.watch_process(Process.pid, :fork, :exec) do |event|
       puts "This process has #{event.flags.map {|f| f.to_s + "ed"}.join(" and ")}"
     end
 
 KQueue can monitor for all sorts of events.
-For a full list, see the `watch_for_*` methods on {Queue}.
+For a full list, see the `watch_*` methods on {Queue}.
 
 Finally, run the queue:
 
