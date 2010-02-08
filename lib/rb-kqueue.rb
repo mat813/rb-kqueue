@@ -8,6 +8,8 @@ require 'rb-kqueue/event'
 require 'rb-kqueue/queue'
 
 module KQueue
+  VERSION = [0, 0, 0]
+
   def self.handle_error(errno = FFI.errno)
     raise SystemCallError.new(
       "KQueue failed" +
