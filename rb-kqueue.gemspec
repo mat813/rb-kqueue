@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rb-kqueue}
-  s.version = "0.0.3"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nathan Weizenbaum"]
@@ -31,7 +31,9 @@ Gem::Specification.new do |s|
      "lib/rb-kqueue/watcher/file.rb",
      "lib/rb-kqueue/watcher/process.rb",
      "lib/rb-kqueue/watcher/read_write.rb",
+     "lib/rb-kqueue/watcher/signal.rb",
      "lib/rb-kqueue/watcher/socket_read_write.rb",
+     "lib/rb-kqueue/watcher/timer.rb",
      "rb-kqueue.gemspec"
   ]
   s.homepage = %q{http://github.com/nex3/rb-kqueue}
