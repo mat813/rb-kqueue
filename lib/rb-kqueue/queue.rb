@@ -28,8 +28,12 @@ module KQueue
       Watcher::SocketReadWrite.new(self, fd, :write, low_water, callback)
     end
 
-    def watch_for_change(path, *flags, &callback)
+    def watch_for_file_change(path, *flags, &callback)
       Watcher::VNode.new(self, path, flags, callback)
+    end
+
+    def watch_for_process_change(pid, *flags, &callback)
+      Watcher::Process.new(self, path, flags, callback)
     end
 
     def run
