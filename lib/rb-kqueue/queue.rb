@@ -240,9 +240,11 @@ module KQueue
     #
     # `:signal`
     # : The process was sent a signal.
+    #   This is only supported under Darwin/OS X.
     #
     # `:reap`
     # : The process was reaped by the parent via `wait(2)` or similar.
+    #   This is only supported under Darwin/OS X.
     #
     # @param pid [Fixnum] The id of the process.
     # @param flags [Array<Symbol>] Which events to watch for.
