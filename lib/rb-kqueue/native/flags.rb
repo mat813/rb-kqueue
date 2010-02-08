@@ -54,6 +54,9 @@ module KQueue
       NOTE_PROC_EXEC = 0x20000000 # Process exec'd
       NOTE_PROC_REAP = 0x10000000 # Process reaped
       NOTE_PROC_SIGNAL = 0x08000000 # Received signal
+      NOTE_TRACK = 0x00000001 # follow across forks
+      NOTE_TRACKERR = 0x00000002 # could not track child
+      NOTE_CHILD = 0x00000004 # am a child process
 
 
       # Converts a list of flags to the bitmask that the C API expects.

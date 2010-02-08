@@ -246,6 +246,14 @@ module KQueue
     # : The process was reaped by the parent via `wait(2)` or similar.
     #   This is only supported under Darwin/OS X.
     #
+    # `:track`
+    # : Follow the process across `fork(2)` calls.
+    #   {Event#flags} for the parent process will contain `:fork`,
+    #   while {Event#flags} for the child process will contain `:child`.
+    #   If the system was unable to attach an event to the child process,
+    #   {Event#flags} will contain `:trackerr`.
+    #   This is not supported under Darwin/OS X.
+    #
     # @param pid [Fixnum] The id of the process.
     # @param flags [Array<Symbol>] Which events to watch for.
     # @yield [event] A block that will be run when the process changes.
