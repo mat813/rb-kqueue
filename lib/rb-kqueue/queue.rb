@@ -8,14 +8,24 @@ module KQueue
       @watchers = {}
     end
 
-    def watch_for_read(fd, low_water = nil, &callback)
+    def watch_for_read(fd, &callback)
       fd = fd.fileno if fd.respond_to?(:fileno)
-      Watcher::Read.new(self, fd, low_water, callback)
+      Watcher::ReadWrite.new(self, fd, :read, callback)
     end
 
-    def watch_for_write(fd, low_water = nil, &callback)
+    def watch_for_socket_read(fd, low_water = nil, &callback)
       fd = fd.fileno if fd.respond_to?(:fileno)
-      Watcher::Write.new(self, fd, low_water, callback)
+      Watcher::SocketReadWrite.new(self, fd, :read, low_water, callback)
+    end
+
+    def watch_for_write(fd, &callback)
+      fd = fd.fileno if fd.respond_to?(:fileno)
+      Watcher::ReadWrite.new(self, fd, :write, callback)
+    end
+
+    def watch_for_socket_write(fd, low_water = nil, &callback)
+      fd = fd.fileno if fd.respond_to?(:fileno)
+      Watcher::SocketReadWrite.new(self, fd, :write, low_water, callback)
     end
 
     def watch_for_change(path, *flags, &callback)
