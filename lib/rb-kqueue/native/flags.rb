@@ -48,6 +48,13 @@ module KQueue
       NOTE_RENAME = 0x00000020 # Vnode was renamed
       NOTE_REVOKE = 0x00000040 # Vnode access was revoked
 
+      # For `EVFILT_PROC`
+      NOTE_EXIT = 0x80000000 # Process exited
+      NOTE_FORK = 0x40000000 # Process forked
+      NOTE_EXEC = 0x20000000 # Process exec'd
+      NOTE_REAP = 0x10000000 # Process reaped
+      NOTE_SIGNAL = 0x08000000 # Received signal
+
 
       # Converts a list of flags to the bitmask that the C API expects.
       #
