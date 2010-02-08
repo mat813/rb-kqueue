@@ -75,7 +75,6 @@ module KQueue
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
     def watch_stream_for_read(fd, &callback)
-      fd = fd.fileno if fd.respond_to?(:fileno)
       Watcher::ReadWrite.new(self, fd, :read, callback)
     end
 
@@ -107,7 +106,6 @@ module KQueue
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
     def watch_socket_for_read(fd, low_water = nil, &callback)
-      fd = fd.fileno if fd.respond_to?(:fileno)
       Watcher::SocketReadWrite.new(self, fd, :read, low_water, callback)
     end
 
@@ -128,7 +126,6 @@ module KQueue
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
     def watch_stream_for_write(fd, &callback)
-      fd = fd.fileno if fd.respond_to?(:fileno)
       Watcher::ReadWrite.new(self, fd, :write, callback)
     end
 
@@ -156,7 +153,6 @@ module KQueue
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
     def watch_socket_for_write(fd, low_water = nil, &callback)
-      fd = fd.fileno if fd.respond_to?(:fileno)
       Watcher::SocketReadWrite.new(self, fd, :write, low_water, callback)
     end
 

@@ -20,6 +20,11 @@ module KQueue
       #
       # @private
       def initialize(queue, fd, type, low_water, callback)
+        if fd.is_a?(IO)
+          @io = fd
+          fd = fd.fileno
+        end
+
         @fd = fd
         @type = type
 

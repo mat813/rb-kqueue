@@ -9,6 +9,13 @@ module KQueue
     # Note that read and write events for sockets
     # use the {SocketReadWrite} class.
     class ReadWrite < Watcher
+      # The Ruby IO object from which the file descriptor was extracted.
+      # This is only set if an IO object was used to construct this watcher.
+      # Otherwise, it's `nil`.
+      #
+      # @return [IO, nil]
+      attr_reader :io
+
       # The file descriptor for the stream being watched.
       #
       # @return [Fixnum]
@@ -23,6 +30,11 @@ module KQueue
       #
       # @private
       def initialize(queue, fd, type, callback)
+        if fd.is_a?(IO)
+          @io = fd
+          fd = fd.fileno
+        end
+
         @fd = fd
         @type = type
         super(queue, @fd, type, [], nil, callback)
