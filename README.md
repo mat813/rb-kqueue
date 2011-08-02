@@ -6,6 +6,14 @@ It uses the [FFI](http://wiki.github.com/ffi/ffi) gem to avoid having to compile
 
 [API documentation is available on rdoc.info](http://rdoc.info/projects/nex3/rb-kqueue).
 
+## WARNING
+
+This code is incomplete, and didn't work last I had a chance to test it.
+I don't have time to continue working on it at the moment,
+so I'm posting it online for posterity and in case anyone wants to take a crack at it.
+
+If anyone wants commit rights, just email me at nex342@gmail.com.
+
 ## Usage
 
 The API is similar to the kqueue C API, but with a more Rubyish feel.
