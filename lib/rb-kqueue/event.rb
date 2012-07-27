@@ -67,7 +67,7 @@ module KQueue
       @filter = KQueue::Native::Flags.from_flag("EVFILT", @native[:filter])
       @flags = Native::Flags.from_mask("EV", @native[:flags])
 
-      KQueue.handle_error @native[:data] if @flags.inclue?(:error)
+      KQueue.handle_error @native[:data] if @flags.include?(:error)
     end
 
     # Runs the callback for this event.

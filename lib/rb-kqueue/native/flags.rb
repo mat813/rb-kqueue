@@ -85,7 +85,7 @@ module KQueue
         constants.select do |c|
           next false unless c =~ re
           const_get(c) & mask != 0
-        end.map {|c| c.sub("#{prefix}_", "").downcase.to_sym}
+        end.map {|c| c.to_s.sub("#{prefix}_", "").downcase.to_sym}
       end
 
       # Converts a flag to the integer that the C API expects.
@@ -106,7 +106,7 @@ module KQueue
         re = /^#{Regexp.quote prefix}_/
         constants.each do |c|
           next unless c =~ re
-          return c.sub("#{prefix}_", "").downcase.to_sym if const_get(c) == flag
+          return c.to_s.sub("#{prefix}_", "").downcase.to_sym if const_get(c) == flag
         end
       end
     end

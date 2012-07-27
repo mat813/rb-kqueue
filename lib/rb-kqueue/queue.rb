@@ -337,15 +337,26 @@ module KQueue
       read_events.each {|event| event.callback!}
     end
 
+    def poll
+      read_events(false).each {|event| event.callback!}
+    end
+
+    NULL_TIMEOUT = Native::TimeSpec.new.tap { |ts|
+      ts[:tv_sec] = 0
+      ts[:tv_nsec] = 0
+    }
+
     # Blocks until there are one or more filesystem events
     # that this notifier has watchers registered for.
     # Once there are events, returns their {Event} objects.
     #
     # @private
-    def read_events
+    def read_events(blocking = true)
       size = 1024
       eventlist = FFI::MemoryPointer.new(Native::KEvent, size)
-      res = Native.kevent(@fd, nil, 0, eventlist, size, nil)
+
+      timeout = blocking ? nil : NULL_TIMEOUT
+      res = Native.kevent(@fd, nil, 0, eventlist, size, timeout)
 
       KQueue.handle_error if res < 0
       (0...res).map {|i| KQueue::Event.new(Native::KEvent.new(eventlist[i]), self)}
