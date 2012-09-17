@@ -31,6 +31,8 @@ module KQueue
         :tv_nsec, :long)
     end
 
+    ffi_lib FFI::Library::LIBC
+
     attach_function :kqueue, [], :int
     attach_function :kevent, [:int, :pointer, :int, :pointer, :int, :pointer], :int
 
