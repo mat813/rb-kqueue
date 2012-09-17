@@ -269,7 +269,7 @@ module KQueue
     # @return [Watcher] The Watcher for this event.
     # @raise [SystemCallError] If something goes wrong when registering the Watcher.
     def watch_process(pid, *flags, &callback)
-      Watcher::Process.new(self, path, flags, callback)
+      Watcher::Process.new(self, pid, flags, callback)
     end
 
     # Watches for signals to this process.
