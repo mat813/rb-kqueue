@@ -82,10 +82,11 @@ module KQueue
       # @return [Array<Symbol>]
       def self.from_mask(prefix, mask)
         re = /^#{Regexp.quote prefix}_/
-        constants.select do |c|
+        constants.select do |sym|
+          c = sym.to_s
           next false unless c =~ re
           const_get(c) & mask != 0
-        end.map {|c| c.sub("#{prefix}_", "").downcase.to_sym}
+        end.map {|c| c.to_s.sub("#{prefix}_", "").downcase.to_sym}
       end
 
       # Converts a flag to the integer that the C API expects.
@@ -104,7 +105,8 @@ module KQueue
       # @return [Symbol]
       def self.from_flag(prefix, flag)
         re = /^#{Regexp.quote prefix}_/
-        constants.each do |c|
+        constants.each do |sym|
+          c = sym.to_s
           next unless c =~ re
           return c.sub("#{prefix}_", "").downcase.to_sym if const_get(c) == flag
         end
