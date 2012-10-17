@@ -49,7 +49,7 @@ module KQueue
               end,
               FFI.errno)
           end)
-        super(queue, @path.fileno, :vnode, flags, nil, callback)
+        super(queue, @fd.fileno, :vnode, flags, nil, callback)
       end
     end
   end
