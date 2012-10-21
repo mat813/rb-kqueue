@@ -9,6 +9,8 @@ module KQueue
   module Native
     extend FFI::Library
 
+    ffi_lib 'c'
+
     # The C struct describing a kqueue event.
     #
     # @private
