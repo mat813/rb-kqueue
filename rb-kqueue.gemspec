@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
      "lib/rb-kqueue/watcher/timer.rb",
      "rb-kqueue.gemspec"
   ]
-  s.homepage = %q{http://github.com/nex3/rb-kqueue}
+  s.homepage = %q{http://github.com/mat813/rb-kqueue}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
