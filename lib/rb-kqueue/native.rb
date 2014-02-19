@@ -34,7 +34,7 @@ module KQueue
     ffi_lib FFI::Library::LIBC
 
     attach_function :kqueue, [], :int
-    attach_function :kevent, [:int, :pointer, :int, :pointer, :int, :pointer], :int
+    attach_function :kevent, [:int, :pointer, :int, :pointer, :int, :pointer], :int, :blocking => true
 
     attach_function :open, [:string, :int], :int
     attach_function :close, [:int], :int
