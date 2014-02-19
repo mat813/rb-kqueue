@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |gem|
   gem.name = %q{rb-kqueue}
-  gem.version = "0.2.1"
+  gem.version = "0.2.2"
 
   gem.authors = ["Mathieu Arnold", "Nathan Weizenbaum"]
   gem.email = %q{mat@mat.cc nex342@gmail.com}
-  gem.date = %q{2012-12-03}
+  gem.date = %q{2014-02-19}
   gem.description = %q{A Ruby wrapper for BSD's kqueue, using FFI}
   gem.extra_rdoc_files = %w(README.md)
 
