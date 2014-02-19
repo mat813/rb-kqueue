@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |gem|
   gem.name = %q{rb-kqueue}
-  gem.version = "0.2.0"
+  gem.version = "0.2.1"
 
   gem.authors = ["Mathieu Arnold", "Nathan Weizenbaum"]
   gem.email = %q{mat@mat.cc nex342@gmail.com}
