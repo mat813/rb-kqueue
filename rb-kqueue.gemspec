@@ -12,6 +12,7 @@ Gem::Specification.new do |gem|
   gem.date = %q{2014-02-19}
   gem.description = %q{A Ruby wrapper for BSD's kqueue, using FFI}
   gem.extra_rdoc_files = %w(README.md)
+  gem.licenses = ['MIT']
 
   gem.files = `git ls-files`.split(/\n/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
