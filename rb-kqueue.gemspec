@@ -3,9 +3,11 @@
 # Instead, edit Jeweler::Tasks in Rakefile, and run the gemspec command
 # -*- encoding: utf-8 -*-
 
+require File.expand_path('../lib/rb-kqueue/version', __FILE__)
+
 Gem::Specification.new do |gem|
   gem.name = %q{rb-kqueue}
-  gem.version = "0.2.3"
+  gem.version = KQueue::VERSION.join(".")
 
   gem.authors = ["Mathieu Arnold", "Nathan Weizenbaum"]
   gem.email = %q{mat@mat.cc nex342@gmail.com}

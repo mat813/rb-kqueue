@@ -6,6 +6,7 @@ require 'rb-kqueue/watcher/read_write'
 require 'rb-kqueue/watcher/process'
 require 'rb-kqueue/event'
 require 'rb-kqueue/queue'
+require 'rb-kqueue/version'
 
 # The root module of the library, which is laid out as so:
 #
@@ -13,8 +14,6 @@ require 'rb-kqueue/queue'
 # * {Watcher} -- A watcher for a single sort of event
 # * {Event} -- A notification that an event has occurred
 module KQueue
-  VERSION = [0, 2, 3]
-
   # Raise an exception for a native kqueue error.
   #
   # @param errno [Fixnum] The errno identifying the sort of error.
