@@ -6,17 +6,50 @@ module KQueue
     # @private
     module Flags
       # Filters
-      EVFILT_READ = -1
-      EVFILT_WRITE = -2
-      EVFILT_AIO = -3 # Attached to aio requests
-      EVFILT_VNODE = -4 # Attached to vnodes
-      EVFILT_PROC = -5 # Attached to struct proc
-      EVFILT_SIGNAL = -6 # Attached to struct proc
-      EVFILT_TIMER = -7 # Timers
-      EVFILT_MACHPORT = -8 # Mach portsets
-      EVFILT_FS = -9 # Filesystem events
-      EVFILT_USER = -10 # User events
-      EVFILT_SESSION = -11 # Audit session events
+      if FFI::Platform::IS_FREEBSD
+        EVFILT_READ	=	-1
+        EVFILT_WRITE	=	-2
+        EVFILT_AIO	=	-3	# Attached to aio requests
+        EVFILT_VNODE	=	-4	# Attached to vnodes
+        EVFILT_PROC	=	-5	# Attached to struct proc
+        EVFILT_SIGNAL	=	-6	# Attached to struct proc
+        EVFILT_TIMER	=	-7	# Timers
+        EVFILT_PROCDESC	=	-8	# Attached to process descriptors
+        EVFILT_FS	=	-9	# Filesystem events
+        EVFILT_LIO	=	-10	# Attached to lio requests
+        EVFILT_USER	=	-11	# User events
+        EVFILT_SENDFILE	=	-12	# Attached to sendfile requests
+        EVFILT_SYSCOUNT	=	12
+      elsif FFI::Platform::IS_NETBSD
+        EVFILT_READ	=	0
+        EVFILT_WRITE	=	1
+        EVFILT_AIO	=	2	# Attached to aio requests
+        EVFILT_VNODE	=	3	# Attached to vnodes
+        EVFILT_PROC	=	4	# Attached to struct proc
+        EVFILT_SIGNAL	=	5	# Attached to struct proc
+        EVFILT_TIMER	=	6	# Arbitrary timer (in ms)
+        EVFILT_SYSCOUNT	=	7	# Number of filters
+      elsif FFI::Platform::IS_OPENBSD
+        EVFILT_READ	=	-1
+        EVFILT_WRITE	=	-2
+        EVFILT_AIO	=	-3	# Attached to aio requests
+        EVFILT_VNODE	=	-4	# Attached to vnodes
+        EVFILT_PROC	=	-5	# Attached to struct proc
+        EVFILT_SIGNAL	=	-6	# Attached to struct proc
+        EVFILT_TIMER	=	-7	# Timers
+      else
+        EVFILT_READ	=	-1
+        EVFILT_WRITE	=	-2
+        EVFILT_AIO	=	-3	# Attached to aio requests
+        EVFILT_VNODE	=	-4	# Attached to vnodes
+        EVFILT_PROC	=	-5	# Attached to struct proc
+        EVFILT_SIGNAL	=	-6	# Attached to struct proc
+        EVFILT_TIMER	=	-7	# Timers
+        EVFILT_MACHPORT	=	-8	# Mach portsets
+        EVFILT_FS	=	-9	# Filesystem events
+        EVFILT_USER	=	-10	# User events
+        EVFILT_SESSION	=	-11	# Audit session events
+      end
 
 
       # Actions
