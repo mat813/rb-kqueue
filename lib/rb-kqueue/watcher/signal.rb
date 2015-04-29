@@ -19,9 +19,9 @@ module KQueue
       def initialize(queue, signal, callback)
         if signal.is_a?(String)
           @name = signal
-          @number = Signal.list[signal]
+          @number = ::Signal.list[signal]
         else
-          @name = Signal.list.find {|_, n| n == signal}.first
+          @name = ::Signal.list.find {|_, n| n == signal}.first
           @number = signal
         end
 
