@@ -28,5 +28,6 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency(%q<ffi>, [">= 0.5.0"])
   gem.add_development_dependency(%q<yard>, [">= 0.4.0"])
+  gem.add_development_dependency(%q<rspec>, [">= 3.3.0"])
 end
 
