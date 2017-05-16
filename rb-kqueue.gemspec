@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
 
   gem.authors = ["Mathieu Arnold", "Nathan Weizenbaum"]
   gem.email = %q{mat@mat.cc nex342@gmail.com}
-  gem.date = %q{2015-05-01}
+  gem.date = %q{2017-05-16}
   gem.description = %q{A Ruby wrapper for BSD's kqueue, using FFI}
   gem.extra_rdoc_files = %w(README.md)
   gem.licenses = ['MIT']
