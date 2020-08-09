@@ -97,6 +97,9 @@ module KQueue
       NOTE_TIMER_NSECONDS = 0x00000004 # data is nanoseconds
       NOTE_TIMER_ABSOLUTE = 0x00000008 # absolute timeout
 
+      # Exception raised when a function fails to find a flag satisfying
+      # its given query.
+      class FlagNotFound < Exception; end
 
       # Converts a list of flags to the bitmask that the C API expects.
       #
@@ -143,6 +146,7 @@ module KQueue
           next unless c =~ re
           return c.to_s.sub("#{prefix}_", "").downcase.to_sym if const_get(c) == flag
         end
+        raise FlagNotFound
       end
     end
   end

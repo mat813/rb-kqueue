@@ -359,7 +359,13 @@ module KQueue
       res = Native.kevent(@fd, nil, 0, eventlist, size, timeout)
 
       KQueue.handle_error if res < 0
-      (0...res).map {|i| KQueue::Event.new(Native::KEvent.new(eventlist[i]), self)}
+      (0...res).map do |i|
+        begin
+          KQueue::Event.new(Native::KEvent.new(eventlist[i]), self)
+        rescue KQueue::Event::UnexpectedEvent
+          nil
+        end
+      end.compact
     end
   end
 end
