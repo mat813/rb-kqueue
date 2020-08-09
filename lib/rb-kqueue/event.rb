@@ -3,6 +3,11 @@ module KQueue
   # Each {Watcher} can fire many events,
   # which are passed to that Watcher's callback.
   class Event
+
+    # Exception raised on an attempt to construct an {Event}
+    # from a native event with unexpected field values.
+    class UnexpectedEvent < Exception; end
+
     # Some integer data, the interpretation of which
     # is specific to each individual {Watcher}.
     # For specifics, see the individual Watcher subclasses.
@@ -64,7 +69,11 @@ module KQueue
       @native = native
       @queue = queue
       @data = @native[:data]
-      @filter = KQueue::Native::Flags.from_flag("EVFILT", @native[:filter])
+      begin
+        @filter = KQueue::Native::Flags.from_flag("EVFILT", @native[:filter])
+      rescue Native::Flags::FlagNotFound
+        raise UnexpectedEvent
+      end
       @flags = Native::Flags.from_mask("EV", @native[:flags])
 
       KQueue.handle_error @native[:data] if @flags.include?(:error)
