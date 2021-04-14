@@ -10,16 +10,16 @@ RSpec.describe KQueue::Queue do
 
     context 'file is watched for writes' do
       before do
-	queue.watch_file file.path, :write do
-	  file_touched = !file_touched
-	end
-	queue.process
+        queue.watch_file file.path, :write do
+          file_touched = !file_touched
+        end
+        queue.process
       end
 
       context 'file is written to' do
-	it 'executes the defined block' do
-	  expect { file.write 'test' }.to change { file_touched }.from(false).to true
-	end
+        it 'executes the defined block' do
+          expect { file.write 'test' }.to change { file_touched }.from(false).to true
+        end
       end
     end
 
