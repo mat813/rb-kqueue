@@ -37,19 +37,23 @@ module KQueue
             FFI.errno)
         end
 
-        ObjectSpace.define_finalizer(self, lambda do
-            next unless Native.close(@fd) < 0
-            raise SystemCallError.new(
-              "Failed to close file #{path}" +
-              case FFI.errno
-              when Errno::EBADF::Errno; ": Invalid file descriptor."
-              when Errno::EINTR::Errno; ": Closing interrupted."
-              when Errno::EIO::Errno; ": IO error."
-              else; ""
-              end,
-              FFI.errno)
-          end)
+        ObjectSpace.define_finalizer(self, self.class.finalizer(@fd, path))
         super(queue, @fd, :vnode, flags, nil, callback)
+      end
+
+      def self.finalizer(fd, path)
+        lambda do
+          next unless Native.close(fd) < 0
+          raise SystemCallError.new(
+            "Failed to close file #{path}" +
+            case FFI.errno
+          when Errno::EBADF::Errno; ": Invalid file descriptor."
+          when Errno::EINTR::Errno; ": Closing interrupted."
+          when Errno::EIO::Errno; ": IO error."
+          else; ""
+          end,
+          FFI.errno)
+        end
       end
     end
   end
