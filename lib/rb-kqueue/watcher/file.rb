@@ -42,7 +42,7 @@ module KQueue
       end
 
       def self.finalizer(fd, path)
-        lambda do
+        lambda do |id|
           next unless Native.close(fd) < 0
           raise SystemCallError.new(
             "Failed to close file #{path}" +
