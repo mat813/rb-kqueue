@@ -14,20 +14,28 @@ module KQueue
     # @private
     class KEvent < FFI::Struct
       if FFI::Platform::IS_FREEBSD
-        fields = [
-          :ident,  :uintptr_t,
-          :filter, :short,
-          :flags,  :u_short,
-          :fflags, :u_int,
-          :data,   :intptr_t,
-          :udata,  :pointer ]
-
         # The FFI gem incorrectly determines the freebsd version, by ignoring
         # the decimal place
         freebsd_version = RbConfig::CONFIG['host_os'].gsub(/[^\d.]/, '').to_f
 
+        fields = [
+          :ident,  :uintptr_t,
+          :filter, :short,
+          :flags,  :u_short,
+          :fflags, :u_int ]
+
         if freebsd_version >= 12.0
-          fields.push(:ext, [ :u_int64_t, 4 ])
+          fields.push(
+            :data,  :int64_t,
+            :udata, :pointer,
+            :ext,   [ :u_int64_t, 4 ])
+        else
+          # FreeBSD 11 has no ext member, and uses intptr_t for
+          # data member
+          fields.push(
+            :data,  :intptr_t,
+            :udata, :pointer
+          )
         end
 
         layout(*fields)
