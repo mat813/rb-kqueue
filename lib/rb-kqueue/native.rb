@@ -14,13 +14,23 @@ module KQueue
     # @private
     class KEvent < FFI::Struct
       if FFI::Platform::IS_FREEBSD
-        layout(
+        fields = [
           :ident,  :uintptr_t,
           :filter, :short,
           :flags,  :u_short,
           :fflags, :u_int,
           :data,   :intptr_t,
-          :udata,  :pointer)
+          :udata,  :pointer ]
+
+        # The FFI gem incorrectly determines the freebsd version, by ignoring
+        # the decimal place
+        freebsd_version = RbConfig::CONFIG['host_os'].gsub(/[^\d.]/, '').to_f
+
+        if freebsd_version >= 12.0
+          fields.push(:ext, [ :u_int64_t, 4 ])
+        end
+
+        layout(*fields)
       elsif FFI::Platform::IS_NETBSD
         layout(
           :ident,  :uintptr_t,
